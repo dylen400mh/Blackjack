@@ -1,5 +1,6 @@
 from card import Card
-import random # used to shuffle deck
+import random  # used to shuffle deck
+
 
 class Deck:
 
@@ -14,9 +15,10 @@ class Deck:
 
                 self.cards.append(card)
 
+    # shuffles cards
     def shuffle(self):
         random.shuffle(self.cards)
 
-
-
-
+    # deals/removes a card from deck
+    def deal(self):
+        return self.cards.pop()
