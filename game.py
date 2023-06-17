@@ -8,10 +8,19 @@ if __name__ == "__main__":
     pass
     
     # First, create a deck of 52 cards
+
+    deck = Deck()
     
     # Shuffle the deck
 
+    Deck.shuffle()
+
+    print("Welcome to Blackjack! The goal is to get as close to 21 as possible without going over!")
+    print("The dealer will hit until they reach 17. Aces can count as 1 or 11.")
+    
     # Ask the player for their bet
+
+
 
     # Make sure bet doesn't exceed their chips
 
