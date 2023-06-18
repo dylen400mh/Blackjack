@@ -3,14 +3,7 @@ from deck import Deck
 from player import Player
 from dealer import Dealer
 
-# determines how many points the user has in their hand
-def hand_value(user):
-    hand_value = 0
 
-    for card in user.hand:
-        hand_value += Card.values[card.rank]
-    
-    return hand_value
 
 
 # run code here
@@ -66,9 +59,7 @@ if __name__ == "__main__":
 
     # determine hand value of the player
 
-    
-
-    player.set_hand_value()
+    player_hand_value = player.hand_valye
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
