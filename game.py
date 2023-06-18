@@ -29,7 +29,7 @@ def update_hand_values():
     return player.get_hand_value(), dealer.get_hand_value()
 
 
-def player_has_ace():
+def has_ace():
     # check if there are any aces worth 11 points in player's hand. If there is, change its value from 11 to 1
     for card in player.hand:
         if card.value == 11:
@@ -39,24 +39,20 @@ def player_has_ace():
     return False
 
 
-def check_for_blackjack():
-    if player_hand_value == 21:
+def check_for_blackjack(user):
+    if user.get_hand_value() == 21:
         print("BLACKJACK!")
-        player.claim_winnings(bet * 2)
 
-
-def check_for_bust():
-    if player_hand_value > 21:
+def check_for_bust(user):
+    if user.get_hand_value() > 21:
 
         # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
-        if not player_has_ace():
+        if not has_ace():
             print("Player busts!")
 
 
 # run code here
 if __name__ == "__main__":
-
-    pass
 
     # First, create a deck of 52 cards
 
@@ -111,10 +107,9 @@ if __name__ == "__main__":
     # show both of player's cards
     print_hands()
 
-    # check for blackjack or bust
+    # check for blackjack
 
-    check_for_blackjack()
-    check_for_bust()
+    check_for_blackjack(player)
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
@@ -135,22 +130,33 @@ if __name__ == "__main__":
             print_hands()
 
             # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
-            check_for_blackjack()
+            check_for_blackjack(player)
 
-            # if player busts (goes over 21)
-            check_for_bust()
+            check_for_bust(dealer)
 
         # break out if they choose to stand
         if ans.upper() == "S":
             player_hitting = False
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
-    # else:
-        # print("Player stands. Dealer is playing...")
+    else:
+        print("Player stands. Dealer is playing...")
 
-        # while (dealer_hand_value < 17)
+        print_hands()
 
-        # print_hands()
+        while (dealer_hand_value < 17):
+            dealer.hand.append(deck.deal()) # deal the dealer a card
+
+            player_hand_value, dealer_hand_value = update_hand_values()
+            print_hands()
+
+            # if dealer gets a blackjack (21 points), claim winnings (doubled to account for original bet)
+            check_for_blackjack(dealer)
+
+            check_for_bust(dealer)
+            
+
+
     # determine winner and adjust chips accordingly
 
     # ask player to play again
@@ -165,5 +171,4 @@ TODOS
 5. adjust spacing/tabs to make interface look nicer
 6. are there any ways to clean up my code?
 7. consider adding comments to help myself and others understand the code
-8. make aces count as 1 or 11
 '''
