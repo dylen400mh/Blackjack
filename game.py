@@ -31,10 +31,14 @@ def has_ace(user):
             return True
     return False
 
+# announces that there is a blackjack if the user gets a hand of 21
+
 
 def check_for_blackjack(user):
     if user.hand_value == 21:
         print("\nBLACKJACK!")
+
+# announces that there is a bust if the user's hand exceeds 21
 
 
 def check_for_bust(user):
@@ -69,6 +73,7 @@ while play_game:
 
     print(f"You currently have {player.chips} chips.")
 
+    # loop will run until they enter a number that doesn't exceed their number of chips
     while True:
         try:
             bet = int(input("Place your bet: "))
@@ -109,6 +114,7 @@ while play_game:
     # if they don't bust (go over 21) ask again
     while player_hand_value < 21 and player.is_playing:
 
+        # ask user to hit or stand until they enter valid input
         while ans.upper() not in ["H", "S"]:
             ans = input("Would you like to hit or stand? ('H' or 'S'): ")
 
@@ -125,6 +131,7 @@ while play_game:
             # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
             check_for_blackjack(player)
 
+            # check if hand is greater than 21
             check_for_bust(player)
 
         # break out if they choose to stand
@@ -141,6 +148,7 @@ while play_game:
 
         check_for_blackjack(dealer)
 
+        # dealer will hit until their hand is 17 or greater
         while (dealer_hand_value < 17):
             dealer.hand.append(deck.deal())  # deal the dealer a card
 
@@ -159,6 +167,7 @@ while play_game:
     # player wins if they have a greater hand and they didn't bust, or if the dealer busts
     if (player_hand_value > dealer_hand_value and player_hand_value <= 21) or dealer_hand_value > 21:
         print("Player wins!")
+        # amount is doubled to account for original amount bet
         player.claim_winnings(bet * 2)
     # dealer wins if player has a worse hand or if the player busted
     elif player_hand_value < dealer_hand_value or player_hand_value > 21:
@@ -198,7 +207,7 @@ print("\nThanks for playing!")
 TODOS
 
 are there any ways to clean up my code?
-consider adding comments to help myself and others understand the code
-make a detailed README file
+
+can I make a method to hit/stand?
 
 '''
