@@ -144,13 +144,14 @@ if __name__ == "__main__":
 
         print_hands()
 
+        check_for_blackjack(dealer)
+
         while (dealer_hand_value < 17):
             dealer.hand.append(deck.deal()) # deal the dealer a card
 
             player_hand_value, dealer_hand_value = update_hand_values()
             print_hands()
 
-            # if dealer gets a blackjack (21 points), claim winnings (doubled to account for original bet)
             check_for_blackjack(dealer)
 
             check_for_bust(dealer)
