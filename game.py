@@ -34,9 +34,23 @@ def player_has_ace():
     for card in player.hand:
         if card.value == 11:
             player_hand_value -= 10
-            card.value = 1 # modify the card's value to ensure the if statement doesn't run for the same card again
+            card.value = 1  # modify the card's value to ensure the if statement doesn't run for the same card again
             return True
     return False
+
+
+def check_for_blackjack():
+    if player_hand_value == 21:
+        print("BLACKJACK!")
+        player.claim_winnings(bet * 2)
+
+
+def check_for_bust():
+    if player_hand_value > 21:
+
+        # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
+        if not player_has_ace():
+            print("Player busts!")
 
 
 # run code here
@@ -97,6 +111,11 @@ if __name__ == "__main__":
     # show both of player's cards
     print_hands()
 
+    # check for blackjack or bust
+
+    check_for_blackjack()
+    check_for_bust()
+
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
     while player_hand_value < 21 and player_hitting:
@@ -116,19 +135,10 @@ if __name__ == "__main__":
             print_hands()
 
             # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
-            if player_hand_value == 21:
-                print("BLACKJACK!")
-                player.claim_winnings(bet * 2)
+            check_for_blackjack()
 
             # if player busts (goes over 21)
-            if player_hand_value > 21:
-
-                # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
-                if player_has_ace():
-                    continue
-
-                else:
-                    print("Player busts!")
+            check_for_bust()
 
         # break out if they choose to stand
         if ans.upper() == "S":
