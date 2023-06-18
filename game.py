@@ -39,7 +39,6 @@ def check_for_blackjack(user):
 
 def check_for_bust(user):
     if user.hand_value > 21:
-
         # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
         if not has_ace(user):
             print("BUST!")
@@ -105,10 +104,11 @@ if __name__ == "__main__":
 
     check_for_blackjack(player)
 
+    ans = ""
+
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
     while player_hand_value < 21 and player_hitting:
-        ans = ""
 
         while ans.upper() not in ["H", "S"]:
             ans = input("Would you like to hit or stand? ('H' or 'S'): ")
@@ -132,33 +132,37 @@ if __name__ == "__main__":
         if ans.upper() == "S":
             player_hitting = False
 
-    # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
+    # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17. Skip this if the player busted
 
-    print("Player stands. Dealer is playing...")
+    if ans.upper() == "S" and player_hand_value <= 21:
 
-    print_hands(False)
+        print("Player stands. Dealer is playing...")
 
-    check_for_blackjack(dealer)
-
-    while (dealer_hand_value < 17):
-        dealer.hand.append(deck.deal())  # deal the dealer a card
-
-        dealer_hand_value = dealer.update_hand_value()
-        print_hands()
+        print_hands(False)
 
         check_for_blackjack(dealer)
 
-        check_for_bust(dealer)
+        while (dealer_hand_value < 17):
+            dealer.hand.append(deck.deal())  # deal the dealer a card
+
+            dealer_hand_value = dealer.update_hand_value()
+            print_hands()
+
+            check_for_blackjack(dealer)
+
+            check_for_bust(dealer)
 
     # determine winner and adjust chips accordingly
 
     print(f"Dealer: {dealer_hand_value}")
     print(f"Player: {player_hand_value}")
 
-    if (player_hand_value > dealer_hand_value):
+    # player wins if they have a greater hand and they didn't bust
+    if player_hand_value > dealer_hand_value and player_hand_value <= 21:
         print("Player wins!")
         player.claim_winnings(bet * 2)
-    elif (player_hand_value < dealer_hand_value):
+    # dealer wins if player has a worse hand or if the player busted
+    elif player_hand_value < dealer_hand_value or player_hand_value > 21:
         print("Dealer wins!")
     else:
         print("It's a draw!")
@@ -174,8 +178,9 @@ if __name__ == "__main__":
 TODOS
 
 2. if player stands, play dealer's hand until >= 17. What if they bust?
-make dealers hand show after player stands
+make dealers hand show after player stands (need to access the variable somehow)
 3. Determine winner and adjust chips. DONT RUN THIS IF THE PLAYER BUSTS
+if player busts, dont let it say they stand
 4. make a loop to play again until they quit
 5. adjust spacing/tabs to make interface look nicer
 6. are there any ways to clean up my code?
