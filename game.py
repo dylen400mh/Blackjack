@@ -51,8 +51,9 @@ if __name__ == "__main__":
         dealer.hand.append(deck.deal())
 
     # show only one of dealers cards; other is hidden
-
     # show both of player's cards
+    print(dealer)
+    print(player)
 
     # ask the player to hit and take another card
 
