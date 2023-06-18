@@ -35,6 +35,8 @@ if __name__ == "__main__":
         else:
             if bet > player.chips:
                 print("You have an insufficient number of chips. Please try again.")
+            elif bet < 1:
+                print("You must bet at least 1 chip. Please try again.")
             else:
                 player.place_bet(bet)
                 break
