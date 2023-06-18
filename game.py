@@ -108,11 +108,11 @@ while play_game:
 
     check_for_blackjack(player)
 
-    ans = ""
-
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
     while player.hand_value < 21 and player.is_playing:
+
+        ans = ""
 
         # ask user to hit or stand until they enter valid input
         while ans.upper() not in ["H", "S"]:
@@ -200,6 +200,8 @@ while play_game:
             deck = Deck()
             player = Player(chips)
             dealer = Dealer()
+    else:
+        play_game = False  # exit game if user runs out of chips
 
 print("\nThanks for playing!")
 
