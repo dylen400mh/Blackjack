@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
-    while player_hand_value <= 21 and player_hitting:
+    while player_hand_value < 21 and player_hitting:
         ans = ""
 
         # show only one of dealers cards; other is hidden
