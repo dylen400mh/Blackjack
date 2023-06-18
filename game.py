@@ -1,6 +1,6 @@
 from card import Card
 from deck import Deck
-from chip import Chip
+from player import Player
 
 
 # run code here
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # Ask the player for their bet
     
-    
+    chips = Chip()
 
 
     # Make sure bet doesn't exceed their chips
