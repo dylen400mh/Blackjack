@@ -16,12 +16,29 @@ if __name__ == "__main__":
 
     Deck.shuffle()
 
+    # initialize player object
+
+    player = Player()
+
     print("Welcome to Blackjack! The goal is to get as close to 21 as possible without going over!")
     print("The dealer will hit until they reach 17. Aces can count as 1 or 11.")
 
     # Ask the player for their bet
     
-    chips = Chip()
+    print(f"You currently have {player.chips} chips.")
+
+    while True:
+        try:
+          bet = int(input("Place your bet: "))
+        except TypeError:
+            print("Please enter a valid number.")
+        else:
+            if bet > player.chips:
+                print("You have an insufficient number of chips. Please try again.")
+            else:
+                player.place_bet(bet)
+                break
+        
 
 
     # Make sure bet doesn't exceed their chips
