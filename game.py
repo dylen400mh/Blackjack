@@ -97,8 +97,8 @@ while play_game:
 
     # determine hand value of the player and dealer
 
-    player_hand_value = player.update_hand_value()
-    dealer_hand_value = dealer.update_hand_value()
+    player.hand_value = player.update_hand_value()
+    dealer.hand_value = dealer.update_hand_value()
 
     # show only one of dealers cards; other is hidden
     # show both of player's cards
@@ -112,7 +112,7 @@ while play_game:
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
-    while player_hand_value < 21 and player.is_playing:
+    while player.hand_value < 21 and player.is_playing:
 
         # ask user to hit or stand until they enter valid input
         while ans.upper() not in ["H", "S"]:
@@ -125,7 +125,7 @@ while play_game:
         if ans.upper() == "H":
             player.hand.append(deck.deal())
 
-            player_hand_value = player.update_hand_value()
+            player.hand_value = player.update_hand_value()
             print_hands()
 
             # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
@@ -140,7 +140,7 @@ while play_game:
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17. Skip this if the player busted
 
-    if ans.upper() == "S" and player_hand_value <= 21:
+    if ans.upper() == "S" and player.hand_value <= 21:
 
         print("Player stands. Dealer is playing...")
 
@@ -149,10 +149,10 @@ while play_game:
         check_for_blackjack(dealer)
 
         # dealer will hit until their hand is 17 or greater
-        while (dealer_hand_value < 17):
+        while (dealer.hand_value < 17):
             dealer.hand.append(deck.deal())  # deal the dealer a card
 
-            dealer_hand_value = dealer.update_hand_value()
+            dealer.hand_value = dealer.update_hand_value()
             print_hands()
 
             check_for_blackjack(dealer)
@@ -161,16 +161,16 @@ while play_game:
 
     # determine winner and adjust chips accordingly
 
-    print(f"\nDealer: {dealer_hand_value}")
-    print(f"Player: {player_hand_value}")
+    print(f"\nDealer: {dealer.hand_value}")
+    print(f"Player: {player.hand_value}")
 
     # player wins if they have a greater hand and they didn't bust, or if the dealer busts
-    if (player_hand_value > dealer_hand_value and player_hand_value <= 21) or dealer_hand_value > 21:
+    if (player.hand_value > dealer.hand_value and player.hand_value <= 21) or dealer.hand_value > 21:
         print("Player wins!")
         # amount is doubled to account for original amount bet
         player.claim_winnings(bet * 2)
     # dealer wins if player has a worse hand or if the player busted
-    elif player_hand_value < dealer_hand_value or player_hand_value > 21:
+    elif player.hand_value < dealer.hand_value or player.hand_value > 21:
         print("Dealer wins!")
     else:
         print("It's a draw!")
@@ -206,6 +206,7 @@ print("\nThanks for playing!")
 '''
 TODOS
 
+loop doesn't ask user to hit or stand again. It continues until they bust
 are there any ways to clean up my code?
 
 can I make a method to hit/stand?
