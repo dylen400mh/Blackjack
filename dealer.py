@@ -8,10 +8,8 @@ class Dealer():
     
     # determines how many points the user has in their hand
     def set_hand_value(self):
-        hand_value = 0
-
         for card in self.hand:
-            hand_value += Card.values[card.rank]
+            self.hand_value += card.value
 
     def get_hand_value(self):
         return self.hand_value
