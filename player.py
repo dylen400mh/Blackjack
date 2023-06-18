@@ -12,6 +12,4 @@ class Player(Dealer):
         self.chips -= chips
 
     def __str__(self):
-        print("Player's Hand:")
-        print("\t" + self.hand[0])
-        print("\t" + self.hand[1])
+        return f"Player's Hand:\n\t{self.hand[0]}\n\t{self.hand[1]}"

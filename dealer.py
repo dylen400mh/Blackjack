@@ -4,6 +4,4 @@ class Dealer():
         self.hand = []
 
     def __str__(self):
-        print("Dealer's Hand:")
-        print("\t" + self.hand[0])
-        print("\tCARD HIDDEN")
+        return f"Dealer's Hand:\n\t{self.hand[0]}\n\tCARD HIDDEN"
