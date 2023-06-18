@@ -11,6 +11,6 @@ class Player(Dealer):
     def place_bet(self, chips):
         self.chips -= chips
 
-    # claim winnings (must multiply by 2 to account for the amount we originally bet)
+    # claim winnings
     def claim_winnings(self, chips):
-        self.chips += chips * 2
+        self.chips += chips 
