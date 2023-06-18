@@ -138,25 +138,23 @@ if __name__ == "__main__":
             player_hitting = False
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
-    else:
-        print("Player stands. Dealer is playing...")
 
+    print("Player stands. Dealer is playing...")
+
+    print_hands()
+
+    check_for_blackjack(dealer)
+
+    while (dealer_hand_value < 17):
+        dealer.hand.append(deck.deal()) # deal the dealer a card
+
+        player_hand_value, dealer_hand_value = update_hand_values()
         print_hands()
 
         check_for_blackjack(dealer)
 
-        while (dealer_hand_value < 17):
-            dealer.hand.append(deck.deal()) # deal the dealer a card
-
-            player_hand_value, dealer_hand_value = update_hand_values()
-            print_hands()
-
-            check_for_blackjack(dealer)
-
-            check_for_bust(dealer)
+        check_for_bust(dealer)
             
-
-
     # determine winner and adjust chips accordingly
 
     # ask player to play again
