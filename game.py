@@ -8,18 +8,18 @@ from dealer import Dealer
 
 def print_hands():
 
-    print("Dealer's Hand:")
+    print("\nDealer's Hand:")
 
     if player.is_playing:
-        print(dealer.hand[0])
-        print("CARD HIDDEN")
+        print(f"\t{dealer.hand[0]}")
+        print("\tCARD HIDDEN")
     else:
         for card in dealer.hand:
-            print(card)
+            print(f"\t{card}")
 
-    print("Player's Hand:")
+    print("\nPlayer's Hand:")
     for card in player.hand:
-        print(card)
+        print(f"\t{card}")
 
 
 def has_ace(user):
@@ -34,16 +34,17 @@ def has_ace(user):
 
 def check_for_blackjack(user):
     if user.hand_value == 21:
-        print("BLACKJACK!")
+        print("\nBLACKJACK!")
 
 
 def check_for_bust(user):
     if user.hand_value > 21:
         # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
         if not has_ace(user):
-            print("BUST!")
+            print("\nBUST!")
 
 # First, create a deck of 52 cards
+
 
 deck = Deck()
 
@@ -52,7 +53,7 @@ deck = Deck()
 player = Player()
 dealer = Dealer()
 
-play_game = True # game will play
+play_game = True  # game will play
 
 # run code here
 while play_game:
@@ -61,7 +62,7 @@ while play_game:
 
     deck.shuffle()
 
-    print("Welcome to Blackjack! The goal is to get as close to 21 as possible without going over!")
+    print("\nWelcome to Blackjack! The goal is to get as close to 21 as possible without going over!")
     print("The dealer will hit until they reach 17. Aces can count as 1 or 11.\n")
 
     # Ask the player for their bet
@@ -152,7 +153,7 @@ while play_game:
 
     # determine winner and adjust chips accordingly
 
-    print(f"Dealer: {dealer_hand_value}")
+    print(f"\nDealer: {dealer_hand_value}")
     print(f"Player: {player_hand_value}")
 
     # player wins if they have a greater hand and they didn't bust, or if the dealer busts
@@ -167,12 +168,12 @@ while play_game:
         # if there's a draw, return the player's bet
         player.claim_winnings(bet)
 
-    print(f"You now have {player.chips} chips.")
+    print(f"\nYou now have {player.chips} chips.")
 
     # ask player to play again if they have enough chips
 
     if player.chips > 0:
-        
+
         while ans.upper() not in ["Y", "N"]:
             ans = input("Would you like to play again? ('Y' or 'N'): ")
 
@@ -190,8 +191,8 @@ while play_game:
             deck = Deck()
             player = Player(chips)
             dealer = Dealer()
-    
-    print("Thanks for playing!")
+
+print("\nThanks for playing!")
 
 '''
 TODOS
