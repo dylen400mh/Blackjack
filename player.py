@@ -10,6 +10,3 @@ class Player(Dealer):
     # places a bet
     def place_bet(self, chips):
         self.chips -= chips
-
-    def __str__(self):
-        return f"Player's Hand:\n\t{self.hand[0]}\n\t{self.hand[1]}"
