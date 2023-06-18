@@ -197,7 +197,8 @@ print("\nThanks for playing!")
 '''
 TODOS
 
-5. adjust spacing/tabs to make interface look nicer
-6. are there any ways to clean up my code?
-7. consider adding comments to help myself and others understand the code
+are there any ways to clean up my code?
+consider adding comments to help myself and others understand the code
+make a detailed README file
+
 '''
