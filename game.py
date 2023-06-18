@@ -3,7 +3,27 @@ from deck import Deck
 from player import Player
 from dealer import Dealer
 
+# method to print player and dealer hands
+def print_hands():
 
+    print("Dealer's Hand:")
+    
+    if player_hitting:
+        print(dealer.hand[0])
+        print("CARD HIDDEN")
+    else:
+        for card in dealer.hand:
+            print(card)
+
+    print("Player's Hand:")
+    for card in player.hand:
+        print(card)
+
+def update_hand_values():
+    player.set_hand_value()
+    dealer.set_hand_value()
+    
+    return player.get_hand_value(), dealer.get_hand_value()
 
 
 # run code here
@@ -52,19 +72,38 @@ if __name__ == "__main__":
         player.hand.append(deck.deal())
         dealer.hand.append(deck.deal())
 
-    # show only one of dealers cards; other is hidden
-    # show both of player's cards
-    print(dealer)
-    print(player)
 
-    # determine hand value of the player
+    # determine hand value of the player and dealer
 
-    player_hand_value = player.hand_valye
+    player_hand_value, dealer_hand_value = update_hand_values()
+
+    # we will use this boolean to determine whether the dealer's card should be hidden or shown
+    player_hitting = True
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
+    while player_hand_value <= 21 and player_hitting:
+        ans = ""
 
-    while player.hand_value
+        # show only one of dealers cards; other is hidden
+        # show both of player's cards
+        print_hands()
+
+        while ans.upper() not in ["H", "S"]:
+            ans = input("Would you like to hit or stand? ('H' or 'S'): ")
+
+            if ans.upper() not in ["H", "S"]:
+                print("Invalid Input. Please try again.")
+        
+        # if player hits, deal them a card and update their hand value
+        if ans.upper() == "H":
+            player.hand.append(deck.deal())
+
+            player_hand_value = update_hand_values()[0] # we are only concerned in modifying the player's hand value right now
+
+        # break out if they choose to stand
+        if ans.upper() == "S":
+            player_hitting = False
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
 
