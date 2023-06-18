@@ -6,7 +6,7 @@ from dealer import Dealer
 # method to print player and dealer hands
 
 
-def print_hands():
+def print_hands(player_hitting=True):
 
     print("Dealer's Hand:")
 
@@ -22,33 +22,27 @@ def print_hands():
         print(card)
 
 
-def update_hand_values():
-    player.set_hand_value()
-    dealer.set_hand_value()
-
-    return player.get_hand_value(), dealer.get_hand_value()
-
-
-def has_ace():
+def has_ace(user):
     # check if there are any aces worth 11 points in player's hand. If there is, change its value from 11 to 1
-    for card in player.hand:
+    for card in user.hand:
         if card.value == 11:
-            player_hand_value -= 10
+            user.hand_value -= 10
             card.value = 1  # modify the card's value to ensure the if statement doesn't run for the same card again
             return True
     return False
 
 
 def check_for_blackjack(user):
-    if user.get_hand_value() == 21:
+    if user.hand_value == 21:
         print("BLACKJACK!")
 
+
 def check_for_bust(user):
-    if user.get_hand_value() > 21:
+    if user.hand_value > 21:
 
         # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
-        if not has_ace():
-            print("Player busts!")
+        if not has_ace(user):
+            print("BUST!")
 
 
 # run code here
@@ -97,7 +91,8 @@ if __name__ == "__main__":
 
     # determine hand value of the player and dealer
 
-    player_hand_value, dealer_hand_value = update_hand_values()
+    player_hand_value = player.update_hand_value()
+    dealer_hand_value = dealer.update_hand_value()
 
     # we will use this boolean to determine whether the dealer's card should be hidden or shown
     player_hitting = True
@@ -125,13 +120,13 @@ if __name__ == "__main__":
         if ans.upper() == "H":
             player.hand.append(deck.deal())
 
-            player_hand_value, dealer_hand_value = update_hand_values()
+            player_hand_value = player.update_hand_value()
             print_hands()
 
             # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
             check_for_blackjack(player)
 
-            check_for_bust(dealer)
+            check_for_bust(player)
 
         # break out if they choose to stand
         if ans.upper() == "S":
@@ -141,21 +136,36 @@ if __name__ == "__main__":
 
     print("Player stands. Dealer is playing...")
 
-    print_hands()
+    print_hands(False)
 
     check_for_blackjack(dealer)
 
     while (dealer_hand_value < 17):
-        dealer.hand.append(deck.deal()) # deal the dealer a card
+        dealer.hand.append(deck.deal())  # deal the dealer a card
 
-        player_hand_value, dealer_hand_value = update_hand_values()
+        dealer_hand_value = dealer.update_hand_value()
         print_hands()
 
         check_for_blackjack(dealer)
 
         check_for_bust(dealer)
-            
+
     # determine winner and adjust chips accordingly
+
+    print(f"Dealer: {dealer_hand_value}")
+    print(f"Player: {player_hand_value}")
+
+    if (player_hand_value > dealer_hand_value):
+        print("Player wins!")
+        player.claim_winnings(bet * 2)
+    elif (player_hand_value < dealer_hand_value):
+        print("Dealer wins!")
+    else:
+        print("It's a draw!")
+        # if there's a draw, return the player's bet
+        player.claim_winnings(bet)
+
+    print(f"You now have {player.chips} chips.")
 
     # ask player to play again
 
@@ -164,7 +174,8 @@ if __name__ == "__main__":
 TODOS
 
 2. if player stands, play dealer's hand until >= 17. What if they bust?
-3. Determine winner and adjust chips
+make dealers hand show after player stands
+3. Determine winner and adjust chips. DONT RUN THIS IF THE PLAYER BUSTS
 4. make a loop to play again until they quit
 5. adjust spacing/tabs to make interface look nicer
 6. are there any ways to clean up my code?
