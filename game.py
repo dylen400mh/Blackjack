@@ -155,8 +155,8 @@ while play_game:
     print(f"Dealer: {dealer_hand_value}")
     print(f"Player: {player_hand_value}")
 
-    # player wins if they have a greater hand and they didn't bust
-    if player_hand_value > dealer_hand_value and player_hand_value <= 21:
+    # player wins if they have a greater hand and they didn't bust, or if the dealer busts
+    if (player_hand_value > dealer_hand_value and player_hand_value <= 21) or dealer_hand_value > 21:
         print("Player wins!")
         player.claim_winnings(bet * 2)
     # dealer wins if player has a worse hand or if the player busted
@@ -169,25 +169,29 @@ while play_game:
 
     print(f"You now have {player.chips} chips.")
 
-    # ask player to play again
+    # ask player to play again if they have enough chips
 
-    while ans.upper() not in ["Y", "N"]:
-        ans = input("Would you like to play again? ('Y' or 'N'): ")
+    if player.chips > 0:
+        
+        while ans.upper() not in ["Y", "N"]:
+            ans = input("Would you like to play again? ('Y' or 'N'): ")
 
-        if ans.upper() not in ["Y", "N"]:
-            print("Invalid input. Please try again.")
+            if ans.upper() not in ["Y", "N"]:
+                print("Invalid input. Please try again.")
 
-    # exit the game if they choose no
-    if ans.upper() == "N":
-        play_game = False
+        # exit the game if they choose no
+        if ans.upper() == "N":
+            play_game = False
 
-    # if they choose to replay, we need to reinitialize everything except for the player's chips
-    if ans.upper() == "Y":
-        chips = player.chips
+        # if they choose to replay, we need to reinitialize everything except for the player's chips
+        if ans.upper() == "Y":
+            chips = player.chips
 
-        deck = Deck()
-        player = Player(chips)
-        dealer = Dealer()
+            deck = Deck()
+            player = Player(chips)
+            dealer = Dealer()
+    
+    print("Thanks for playing!")
 
 '''
 TODOS
