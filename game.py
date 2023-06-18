@@ -30,7 +30,7 @@ if __name__ == "__main__":
     while True:
         try:
           bet = int(input("Place your bet: "))
-        except TypeError:
+        except:
             print("Please enter a valid number.")
         else:
             if bet > player.chips:
