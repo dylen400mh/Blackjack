@@ -135,7 +135,7 @@ if __name__ == "__main__":
 
         print("Player stands. Dealer is playing...")
 
-        print_hands(False)
+        print_hands()
 
         check_for_blackjack(dealer)
 
