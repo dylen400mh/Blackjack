@@ -6,6 +6,7 @@ class Player(Dealer):
     def __init__(self):
         Dealer.__init__(self)
         self.chips = 100 # player starts with 100 chips
+        self.is_playing = True # player starts playing first
     
     # places a bet
     def place_bet(self, chips):

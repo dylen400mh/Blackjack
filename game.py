@@ -6,11 +6,11 @@ from dealer import Dealer
 # method to print player and dealer hands
 
 
-def print_hands(player_hitting=True):
+def print_hands():
 
     print("Dealer's Hand:")
 
-    if player_hitting:
+    if player.is_playing:
         print(dealer.hand[0])
         print("CARD HIDDEN")
     else:
@@ -93,9 +93,6 @@ if __name__ == "__main__":
     player_hand_value = player.update_hand_value()
     dealer_hand_value = dealer.update_hand_value()
 
-    # we will use this boolean to determine whether the dealer's card should be hidden or shown
-    player_hitting = True
-
     # show only one of dealers cards; other is hidden
     # show both of player's cards
     print_hands()
@@ -108,7 +105,7 @@ if __name__ == "__main__":
 
     # ask the player to hit and take another card
     # if they don't bust (go over 21) ask again
-    while player_hand_value < 21 and player_hitting:
+    while player_hand_value < 21 and player.is_playing:
 
         while ans.upper() not in ["H", "S"]:
             ans = input("Would you like to hit or stand? ('H' or 'S'): ")
@@ -130,7 +127,7 @@ if __name__ == "__main__":
 
         # break out if they choose to stand
         if ans.upper() == "S":
-            player_hitting = False
+            player.is_playing = False
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17. Skip this if the player busted
 
@@ -177,10 +174,7 @@ if __name__ == "__main__":
 '''
 TODOS
 
-2. if player stands, play dealer's hand until >= 17. What if they bust?
 make dealers hand show after player stands (need to access the variable somehow)
-3. Determine winner and adjust chips. DONT RUN THIS IF THE PLAYER BUSTS
-if player busts, dont let it say they stand
 4. make a loop to play again until they quit
 5. adjust spacing/tabs to make interface look nicer
 6. are there any ways to clean up my code?
