@@ -98,7 +98,6 @@ if __name__ == "__main__":
     # determine hand value of the player and dealer
 
     player_hand_value, dealer_hand_value = update_hand_values()
-    print(player_hand_value)
 
     # we will use this boolean to determine whether the dealer's card should be hidden or shown
     player_hitting = True
