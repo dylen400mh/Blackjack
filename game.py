@@ -14,7 +14,7 @@ if __name__ == "__main__":
     
     # Shuffle the deck
 
-    Deck.shuffle()
+    deck.shuffle()
 
     # initialize player object
 
