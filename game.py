@@ -105,9 +105,15 @@ if __name__ == "__main__":
         if ans.upper() == "S":
             player_hitting = False
     
+    # if player gets a blackjack (21 points), claim winnings (doubled to account for original bet)
+    if player_hand_value == 21:
+        print("BLACKJACK!")
+        player.claim_winnings(bet * 2)
+        
     # if player busts (goes over 21)
     if player_hand_value > 21:
         print("Player busts!")
+    
 
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
