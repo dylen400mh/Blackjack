@@ -104,9 +104,26 @@ if __name__ == "__main__":
         # break out if they choose to stand
         if ans.upper() == "S":
             player_hitting = False
+    
+    # if player busts (goes over 21)
+    if player_hand_value > 21:
+        print("Player busts!")
+
 
     # if player stands, play dealer's hand. Dealer will always hit until their value is >= 17
 
     # determine winner and adjust chips accordingly
 
     # ask player to play again
+
+
+'''
+TODOS
+
+2. if player stands, play dealer's hand until >= 17. What if they bust?
+3. Determine winner and adjust chips
+4. make a loop to play again until they quit
+5. adjust spacing/tabs to make interface look nicer
+6. are there any ways to clean up my code?
+7. consider adding comments to help myself and others understand the code
+'''
