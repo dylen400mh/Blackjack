@@ -3,9 +3,9 @@ from dealer import Dealer
 # Player class inherits from Dealer class
 class Player(Dealer):
 
-    def __init__(self):
+    def __init__(self, chips = 100):
         Dealer.__init__(self)
-        self.chips = 100 # player starts with 100 chips
+        self.chips = chips # player starts with 100 chips, and keeps his number of chips on all consecutive games
         self.is_playing = True # player starts playing first
     
     # places a bet

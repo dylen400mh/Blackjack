@@ -43,22 +43,23 @@ def check_for_bust(user):
         if not has_ace(user):
             print("BUST!")
 
+# First, create a deck of 52 cards
+
+deck = Deck()
+
+# initialize player and dealer objects
+
+player = Player()
+dealer = Dealer()
+
+play_game = True # game will play
 
 # run code here
-if __name__ == "__main__":
-
-    # First, create a deck of 52 cards
-
-    deck = Deck()
+while play_game:
 
     # Shuffle the deck
 
     deck.shuffle()
-
-    # initialize player and dealer objects
-
-    player = Player()
-    dealer = Dealer()
 
     print("Welcome to Blackjack! The goal is to get as close to 21 as possible without going over!")
     print("The dealer will hit until they reach 17. Aces can count as 1 or 11.\n")
@@ -170,12 +171,27 @@ if __name__ == "__main__":
 
     # ask player to play again
 
+    while ans.upper() not in ["Y", "N"]:
+        ans = input("Would you like to play again? ('Y' or 'N'): ")
+
+        if ans.upper() not in ["Y", "N"]:
+            print("Invalid input. Please try again.")
+
+    # exit the game if they choose no
+    if ans.upper() == "N":
+        play_game = False
+
+    # if they choose to replay, we need to reinitialize everything except for the player's chips
+    if ans.upper() == "Y":
+        chips = player.chips
+
+        deck = Deck()
+        player = Player(chips)
+        dealer = Dealer()
 
 '''
 TODOS
 
-make dealers hand show after player stands (need to access the variable somehow)
-4. make a loop to play again until they quit
 5. adjust spacing/tabs to make interface look nicer
 6. are there any ways to clean up my code?
 7. consider adding comments to help myself and others understand the code
