@@ -29,6 +29,16 @@ def update_hand_values():
     return player.get_hand_value(), dealer.get_hand_value()
 
 
+def player_has_ace():
+    # check if there are any aces worth 11 points in player's hand. If there is, change its value from 11 to 1
+    for card in player.hand:
+        if card.value == 11:
+            player_hand_value -= 10
+            card.value = 1 # modify the card's value to ensure the if statement doesn't run for the same card again
+            return True
+    return False
+
+
 # run code here
 if __name__ == "__main__":
 
@@ -113,10 +123,10 @@ if __name__ == "__main__":
             # if player busts (goes over 21)
             if player_hand_value > 21:
 
-                # check if there are any aces in player's hand. If there is, change its value from 11 to 1
-                for card in player.hand:
-                    if card.rank == "Ace":
-                        player_hand_value -= 10
+                # if the player has an ace worth 11 points, it will be converted to 1 point and the game will continue
+                if player_has_ace():
+                    continue
+
                 else:
                     print("Player busts!")
 
